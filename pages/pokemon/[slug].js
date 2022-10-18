@@ -47,7 +47,7 @@ const Pokemon = ({ pokemon }) => {
         <div className={styles.container}>
           {pokemon?.abilities.map((abilitie, index) => (
             <button key={index} type="button" className="nes-btn is-error">
-              {abilitie?.ability?.name}
+              {abilitie?.ability?.name.toUpperCase()}
             </button>
           ))}
         </div>
@@ -55,7 +55,7 @@ const Pokemon = ({ pokemon }) => {
         <div className={styles.container}>
           {pokemon?.types.map((type, index) => (
             <button key={index} type="button" className="nes-btn is-success">
-              {type?.type?.name}
+              {type?.type?.name.toUpperCase()}
             </button>
           ))}
         </div>
