@@ -5,7 +5,9 @@ import { formatIdPokemon, getPokemonImage } from "../utils/utils";
 const CardPokemon = ({ pokemon }) => {
   return (
     <Link href={`/pokemon/${pokemon.name}`}>
-      <div className="nes-container  with-title is-rounded">
+      <div
+        className={`nes-container with-title is-rounded ${pokemon?.types[0]?.type?.name}`}
+      >
         <p className="title">{`#${formatIdPokemon(pokemon.id)}`}</p>
         <Image
           src={getPokemonImage(pokemon)}

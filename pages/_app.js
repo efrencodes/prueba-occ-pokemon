@@ -1,4 +1,5 @@
 import Layout from "../components/layout";
+import "../styles/colorsPokemon.css";
 
 function MyApp({ Component, pageProps }) {
   return (
