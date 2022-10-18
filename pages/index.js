@@ -2,15 +2,30 @@ import { useState } from "react";
 import CardPokemon from "../components/cardPokemon";
 import SearchPokemon from "../components/searchPokemon";
 import styles from "../styles/Home.module.css";
+import { POKEMONS_LIMIT } from "../utils/constants";
 
 export const getStaticProps = async () => {
   const data = await fetch(
-    `${process.env.API_URL_POKEMON}?limit=10000&offset=0`,
+    `${process.env.API_URL_POKEMON}?limit=${POKEMONS_LIMIT}&offset=0`,
   ).then((response) => response.json());
+
+  const { results, next, previous } = data;
+
+  const pokemonsList = await Promise.all(
+    results.map(async (pokemon) => {
+      const response = await fetch(pokemon.url);
+      const res = response.json();
+      return res;
+    }),
+  );
 
   return {
     props: {
-      pokemons: data,
+      pokemons: {
+        next,
+        previous,
+        results: pokemonsList,
+      },
     },
   };
 };
@@ -25,7 +40,7 @@ export default function Home({ pokemons }) {
   return (
     <>
       <h1 className="nes-text is-primary">
-        <i class="nes-ash"></i>
+        <i className="nes-ash"></i>
       </h1>
 
       <SearchPokemon
@@ -42,10 +57,19 @@ export default function Home({ pokemons }) {
           })
           .map((pokemon, index) => (
             <li key={index}>
-              <CardPokemon name={pokemon.name} />
+              <CardPokemon pokemon={pokemon} />
             </li>
           ))}
       </ul>
+
+      <div className={styles.containerButton}>
+        <button type="button" className="nes-btn">
+          Previous
+        </button>
+        <button type="button" className="nes-btn is-primary">
+          Next
+        </button>
+      </div>
     </>
   );
 }

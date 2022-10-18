@@ -1,13 +1,21 @@
 import Link from "next/link";
+import Image from "next/image";
+import { formatIdPokemon, getPokemonImage } from "../utils/utils";
 
-const CardPokemon = ({ name }) => {
+const CardPokemon = ({ pokemon }) => {
   return (
-    <div className="nes-container is-rounded">
-      <h2 className="nes-text is-success">{name.toUpperCase()}</h2>
-      <Link href={`/pokemon/${name}`}>
-        <a className="nes-btn is-warning">See pokemon</a>
-      </Link>
-    </div>
+    <Link href={`/pokemon/${pokemon.name}`}>
+      <div className="nes-container  with-title is-rounded">
+        <p className="title">{`#${formatIdPokemon(pokemon.id)}`}</p>
+        <Image
+          src={getPokemonImage(pokemon)}
+          alt={pokemon.name}
+          width={150}
+          height={150}
+        />
+        <p className="nes-text is-warning">{pokemon.name.toUpperCase()}</p>
+      </div>
+    </Link>
   );
 };
 
