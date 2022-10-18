@@ -1,20 +1,7 @@
 import Image from "next/image";
 import styles from "../../styles/Pokemon.module.css";
 
-export const getStaticPaths = async () => {
-  const data = await fetch(
-    `${process.env.API_URL_POKEMON}?limit=10000&offset=0`,
-  ).then((response) => response.json());
-  const paths = data?.results?.map((pokemon) => ({
-    params: { slug: pokemon.name },
-  }));
-  return {
-    paths,
-    fallback: false,
-  };
-};
-
-export const getStaticProps = async ({ params }) => {
+export const getServerSideProps = async ({ params }) => {
   const pokemon = params.slug;
   const data = await fetch(`${process.env.API_URL_POKEMON}/${pokemon}`).then(
     (response) => response.json(),
@@ -29,8 +16,10 @@ export const getStaticProps = async ({ params }) => {
 const Pokemon = ({ pokemon }) => {
   return (
     <>
-      <div class="nes-container with-title is-centered">
-        <p class="title">{`#${pokemon.id} ${pokemon.name.toUpperCase()}`}</p>
+      <div className="nes-container with-title is-centered">
+        <p className="title">{`#${
+          pokemon.id
+        } ${pokemon.name.toUpperCase()}`}</p>
         <Image
           src={pokemon?.sprites?.front_default}
           alt={pokemon.name}
