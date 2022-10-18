@@ -7,8 +7,10 @@ const Layout = ({ children }) => {
     <>
       <Head>
         <title>Pokemon</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link
-          href="https://fonts.googleapis.com/css?family=Press+Start+2P&display=optional"
+          href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
           rel="stylesheet"
         />
         <link href="https://unpkg.com/nes.css/css/nes.css" rel="stylesheet" />
