@@ -1,5 +1,6 @@
 import React from "react";
 import Head from "next/head";
+import Link from "next/link";
 import styles from "../styles/Layout.module.css";
 
 const Layout = ({ children }) => {
@@ -19,7 +20,14 @@ const Layout = ({ children }) => {
         />
         <link href="https://unpkg.com/nes.css/css/nes.css" rel="stylesheet" />
       </Head>
-      <main className={styles.main}>{children}</main>
+      <main className={styles.main}>
+        <Link href="/">
+          <a>
+            <i className="nes-ash"></i>
+          </a>
+        </Link>
+        {children}
+      </main>
     </>
   );
 };

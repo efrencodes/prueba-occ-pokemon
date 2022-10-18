@@ -17,16 +17,15 @@ export const getServerSideProps = async ({ params }) => {
 const Pokemon = ({ pokemon }) => {
   return (
     <>
-      <div className="nes-container with-title is-centered">
-        <p className="title">{`#${formatIdPokemon(
-          pokemon.id,
-        )} ${pokemon.name.toUpperCase()}`}</p>
+      <div className="nes-container with-title is-centered mt-0">
+        <p className="title">{`#${formatIdPokemon(pokemon.id)}`}</p>
         <Image
           src={getPokemonImage(pokemon)}
           alt={pokemon.name}
           width={150}
           height={150}
         />
+        <p className="nes-text">{pokemon.name.toUpperCase()}</p>
         <p className="nes-text">
           Height:{" "}
           <span className="nes-text is-error">{`${
