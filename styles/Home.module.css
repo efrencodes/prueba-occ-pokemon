@@ -9,13 +9,3 @@
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   grid-auto-rows: 200px;
 }
-
-.containerButton {
-  display: flex;
-  margin-top: 80px;
-  justify-content: center;
-}
-
-.containerButton > a:first-child {
-  margin-right: 16px;
-}

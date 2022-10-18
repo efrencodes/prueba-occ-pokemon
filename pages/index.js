@@ -1,10 +1,9 @@
 import { useState } from "react";
-import Link from "next/link";
 import CardPokemon from "../components/cardPokemon";
 import SearchPokemon from "../components/searchPokemon";
+import Pagination from "../components/pagination";
 import styles from "../styles/Home.module.css";
 import { POKEMONS_LIMIT, POKEMONS_OFFSET } from "../utils/constants";
-import { getQueryParams } from "../utils/utils";
 
 export const getServerSideProps = async (context) => {
   let { offset, limit } = context.query;
@@ -44,10 +43,6 @@ export default function Home({ pokemons }) {
 
   return (
     <>
-      <h1 className="nes-text is-primary">
-        <i className="nes-ash"></i>
-      </h1>
-
       <SearchPokemon
         pokemonInput={pokemonInput}
         onHandleInput={onHandleInput}
@@ -67,14 +62,7 @@ export default function Home({ pokemons }) {
           ))}
       </ul>
 
-      <div className={styles.containerButton}>
-        <Link href={getQueryParams(pokemons?.previous)}>
-          <a className="nes-btn">Previous</a>
-        </Link>
-        <Link href={getQueryParams(pokemons?.next)}>
-          <a className="nes-btn is-primary">Next</a>
-        </Link>
-      </div>
+      <Pagination previous={pokemons?.previous} next={pokemons?.next} />
     </>
   );
 }

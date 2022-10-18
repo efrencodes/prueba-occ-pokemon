@@ -1,0 +1,9 @@
+.containerButton {
+  display: flex;
+  margin-top: 80px;
+  justify-content: center;
+}
+
+.containerButton > a:first-child {
+  margin-right: 16px;
+}
