@@ -3,7 +3,7 @@ import styles from "../../styles/Pokemon.module.css";
 
 export const getStaticPaths = async () => {
   const data = await fetch(
-    `${process.env.API_URL_POKEMON}?limit=20&offset=0`,
+    `${process.env.API_URL_POKEMON}?limit=10000&offset=0`,
   ).then((response) => response.json());
   const paths = data?.results?.map((pokemon) => ({
     params: { slug: pokemon.name },
