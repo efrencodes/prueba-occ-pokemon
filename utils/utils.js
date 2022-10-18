@@ -10,3 +10,9 @@ export const getPokemonImage = (pokemonData) => {
     pokemonData.sprites.front_default;
   return image;
 };
+
+export const getQueryParams = (url) => {
+  if (url == null) return "#";
+  const queryParams = url.split("?")[1];
+  return `?${queryParams}`;
+};

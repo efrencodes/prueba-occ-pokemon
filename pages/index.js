@@ -1,12 +1,17 @@
 import { useState } from "react";
+import Link from "next/link";
 import CardPokemon from "../components/cardPokemon";
 import SearchPokemon from "../components/searchPokemon";
 import styles from "../styles/Home.module.css";
-import { POKEMONS_LIMIT } from "../utils/constants";
+import { POKEMONS_LIMIT, POKEMONS_OFFSET } from "../utils/constants";
+import { getQueryParams } from "../utils/utils";
 
-export const getStaticProps = async () => {
+export const getServerSideProps = async (context) => {
+  let { offset, limit } = context.query;
+  offset = offset || POKEMONS_OFFSET;
+  limit = limit || POKEMONS_LIMIT;
   const data = await fetch(
-    `${process.env.API_URL_POKEMON}?limit=${POKEMONS_LIMIT}&offset=0`,
+    `${process.env.API_URL_POKEMON}?limit=${limit}&offset=${offset}`,
   ).then((response) => response.json());
 
   const { results, next, previous } = data;
@@ -63,12 +68,12 @@ export default function Home({ pokemons }) {
       </ul>
 
       <div className={styles.containerButton}>
-        <button type="button" className="nes-btn">
-          Previous
-        </button>
-        <button type="button" className="nes-btn is-primary">
-          Next
-        </button>
+        <Link href={getQueryParams(pokemons?.previous)}>
+          <a className="nes-btn">Previous</a>
+        </Link>
+        <Link href={getQueryParams(pokemons?.next)}>
+          <a className="nes-btn is-primary">Next</a>
+        </Link>
       </div>
     </>
   );
