@@ -1,7 +1,22 @@
 {
   "name": "prueba-occ-pokemon",
+  "author": "efrencodes <efrencodes@gmail.com> (https://efrencodes.com)",
   "version": "0.1.0",
+  "description": "A website built on NextJS to search pokemon from pokeapi.co based on name.",
   "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/efrencodes/prueba-occ-pokemon"
+  },
+  "keywords": [
+    "next",
+    "nextjs",
+    "pokemon"
+  ],
+  "bugs": {
+    "url": "https://github.com/efrencodes/prueba-occ-pokemon/issues"
+  },
+  "homepage": "https://github.com/efrencodes/prueba-occ-pokemon#readme",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -16,5 +31,6 @@
   "devDependencies": {
     "eslint": "8.25.0",
     "eslint-config-next": "12.3.1"
-  }
+  },
+  "license": "MIT"
 }
