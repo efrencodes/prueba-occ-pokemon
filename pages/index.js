@@ -1,8 +1,7 @@
 import { useState } from "react";
-import CardPokemon from "../components/cardPokemon";
 import SearchPokemon from "../components/searchPokemon";
 import Pagination from "../components/pagination";
-import styles from "../styles/Home.module.css";
+import ListPokemon from "../components/listPokemon";
 import { POKEMONS_LIMIT, POKEMONS_OFFSET } from "../utils/constants";
 
 export const getServerSideProps = async (context) => {
@@ -18,8 +17,7 @@ export const getServerSideProps = async (context) => {
   const pokemonsList = await Promise.all(
     results.map(async (pokemon) => {
       const response = await fetch(pokemon.url);
-      const res = response.json();
-      return res;
+      return response.json();
     }),
   );
 
@@ -36,9 +34,17 @@ export const getServerSideProps = async (context) => {
 
 export default function Home({ pokemons }) {
   const [pokemonInput, setPokemonInput] = useState("");
+  const [searchPokemons, setSearchPokemons] = useState([]);
   const onHandleInput = (e) => {
     let lowerCase = e.target.value.toLowerCase();
     setPokemonInput(lowerCase);
+  };
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    const data = await fetch(
+      `${process.env.NEXT_PUBLIC_URL_POKEMON}/${pokemonInput}`,
+    ).then((response) => response.json());
+    setSearchPokemons([data]);
   };
 
   return (
@@ -46,21 +52,17 @@ export default function Home({ pokemons }) {
       <SearchPokemon
         pokemonInput={pokemonInput}
         onHandleInput={onHandleInput}
+        onSubmit={onSubmit}
       />
 
-      <ul className={styles.listPokemons}>
-        {pokemons?.results
-          ?.filter((data) => {
-            if (pokemonInput === "") return data;
-            else if (data.name.toLowerCase().includes(pokemonInput))
-              return data;
-          })
-          .map((pokemon, index) => (
-            <li key={index}>
-              <CardPokemon pokemon={pokemon} />
-            </li>
-          ))}
-      </ul>
+      {searchPokemons.length > 0 && (
+        <ListPokemon
+          title={`Results for ${pokemonInput}`}
+          pokemons={searchPokemons}
+        />
+      )}
+
+      <ListPokemon title="All pokemons" pokemons={pokemons?.results} />
 
       <Pagination previous={pokemons?.previous} next={pokemons?.next} />
     </>

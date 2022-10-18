@@ -52,3 +52,9 @@
 .dark {
   background: linear-gradient(180deg, #707070 0%, #605757 100%);
 }
+.mt-0 {
+  margin-top: 24px;
+}
+.mb-0 {
+  margin-bottom: 24px;
+}

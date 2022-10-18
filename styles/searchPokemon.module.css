@@ -1,0 +1,9 @@
+.containerSearch {
+  display: flex;
+  align-items: end;
+  margin-top: 24px;
+  margin-bottom: 24px;
+}
+.containerSearch > button {
+  height: 48px;
+}
