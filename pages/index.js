@@ -35,16 +35,26 @@ export const getServerSideProps = async (context) => {
 export default function Home({ pokemons }) {
   const [pokemonInput, setPokemonInput] = useState("");
   const [searchPokemons, setSearchPokemons] = useState([]);
+  const [error, setError] = useState(false);
   const onHandleInput = (e) => {
     let lowerCase = e.target.value.toLowerCase();
     setPokemonInput(lowerCase);
   };
   const onSubmit = async (e) => {
     e.preventDefault();
-    const data = await fetch(
-      `${process.env.NEXT_PUBLIC_URL_POKEMON}/${pokemonInput}`,
-    ).then((response) => response.json());
-    setSearchPokemons([data]);
+    if (pokemonInput !== "") {
+      setError(false);
+      const data = await fetch(
+        `${process.env.NEXT_PUBLIC_URL_POKEMON}/${pokemonInput}`,
+      ).then((response) => {
+        if (response.status === 404) {
+          setError(true);
+          return;
+        }
+        return response.json();
+      });
+      setSearchPokemons([data]);
+    }
   };
 
   return (
@@ -55,12 +65,14 @@ export default function Home({ pokemons }) {
         onSubmit={onSubmit}
       />
 
-      {searchPokemons.length > 0 && (
+      {searchPokemons.length > 0 && !error && (
         <ListPokemon
           title={`Results for ${pokemonInput}`}
           pokemons={searchPokemons}
         />
       )}
+
+      {error && <h3 className="nes-text">Not found pokemon</h3>}
 
       <ListPokemon title="All pokemons" pokemons={pokemons?.results} />
 
