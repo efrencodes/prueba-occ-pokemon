@@ -4,6 +4,14 @@ A website built on Next.js to search pokemon from **[pokeapi.co](https://pokeapi
 
 [Live Demo](https://prueba-occ-pokemon.vercel.app/)
 
+### Main features.
+
+- The project show a list of pokemons from API.
+- Page Detail of pokemons.
+- Pagination.
+- Search bar their favorite pokemon by name or number.
+- Use Nes.css for layout of page.
+
 ![](https://res.cloudinary.com/efrencodes/image/upload/v1666194589/github.com/%20prueba-occ-pokemon/prueba-occ-pokemon.png)
 
 ### Getting Started
